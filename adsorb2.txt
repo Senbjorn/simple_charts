@@ -1,0 +1,34 @@
+#chart:
+name=$Зависимость\ D(V_{эл})\ при\ t=120\ с$
+ax=$V,\ мкл$
+ay=$D$
+curves=2
+#data:
+dname=$Mg(NO_3)_2$
+line=False
+curve=False
+errors=False
+marker=True
+npoints=7
+#(x, y)
+200	0.183
+230	0.326
+300	0.505
+500	0.507
+1000	0.496
+1500	0.488
+2000	0.516
+dname=$KNO_3$
+line=False
+curve=False
+errors=False
+marker=True
+npoints=7
+#(x, y)
+150	0.054
+200	0.032
+300	0.434
+500	0.386
+1000	0.449
+1500	0.497
+2000	0.482

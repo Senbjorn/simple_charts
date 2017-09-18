@@ -2,11 +2,12 @@ import numpy as np
 import re
 
 class Simple_curve():
-	def __init__(self, name, line, curve, errors, x, y, xe = None, ye = None):
+	def __init__(self, name, line, curve, errors, marker, x, y, xe = None, ye = None):
 		self.name = name
 		self.line = line
 		self.curve = curve
 		self.errors = errors
+		self.marker = marker
 		self.x = x
 		self.y = y
 		self.xe = xe
@@ -27,12 +28,19 @@ class Simple_curve():
 	def is_curve(self):
 		return self.curve
 
+	def is_marked(self):
+		return self.marker
+
 class Simple_chart():
-	def __init__(self, file):
-		self.name, self.ax, self.ay, self.curves = self.read(file)
+	def __init__(self, file = None, ax = '', ay = '', name = '', curves = None):
+		if not file is None:
+			self.name, self.ax, self.ay, self.curves = self.read(file)
+		elif not curves is None:
+			self.name, self.ax, self.ay, self.curves = name, ax, ay, curves
+
 
 	def read(self, file):
-		file = open(file, 'r')
+		file = open(file, 'r', encoding = 'utf-8')
 		data_str = file.read()
 		file.close()
 		regexp = re.compile("""^#chart:\nname=(.+)\nax=(.+)\nay=(.+)\ncurves=(\d+)\n#data:\n""")
@@ -45,17 +53,19 @@ class Simple_chart():
 		c_array = []
 		for i in range(curves):
 			tf = lambda s: True if s == 'True' else False
-			regexp = re.compile("""^dname=(.+)\nline=(True|False)\ncurve=(True|False)\nerrors=(True|False)\nnpoints=(\d+)\n""")
+			regexp = re.compile("""^dname=(.+)\nline=(True|False)\ncurve=(True|False)\nerrors=(True|False)\nmarker=(True|False)\nnpoints=(\d+)\n""")
 			sre = regexp.search(data_str[index:])
 			assert sre
 			index += sre.end()
-			dname, line, curve, errors, npoints = sre.groups()
+			dname, line, curve, errors, marker, npoints = sre.groups()
 			line = tf(line)
 			curve = tf(curve)
 			errors = tf(errors)
+			marker = tf(marker)
 			npoints = int(npoints)
 			regdata = re.compile("^#\(x\,\sy\)\n" + "(-?\d+(?:[\.\,]\d+)?)(?:[\s\t]|\,[\s\t]?|;[\s\t]?)(-?\d+(?:[\.\,]\d+)?)\n" * npoints)
 			sredata = regdata.search(data_str[index:])
+			print(npoints)
 			assert sredata
 			index += sredata.end()
 			xy = sredata.groups()
@@ -69,9 +79,9 @@ class Simple_chart():
 				xye = sreerr.groups()
 				xe = np.array([float(xye[i]) for i in range(0, len(xye), 2)])
 				ye = np.array([float(xye[i]) for i in range(1, len(xye), 2)])
-				c_array.append(Simple_curve(dname, line, curve, errors, x, y, xe, ye))
+				c_array.append(Simple_curve(dname, line, curve, errors, marker, x, y, xe = xe, ye = ye))
 			else:
-				c_array.append(Simple_curve(dname, line, curve, errors, x, y))
+				c_array.append(Simple_curve(dname, line, curve, errors, marker, x, y))
 		return (name, ax, ay, c_array)
 
 	def get_name(self):

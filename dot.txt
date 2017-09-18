@@ -1,0 +1,37 @@
+#chart:
+name=$Эскиз\ спектра\ после\ фильтрации\ различными\ сетками$
+ax=$A$
+ay=$x,\ м$
+curves=3
+#data:
+dname=$минимумы\ огибающей$ 
+line=False
+curve=False
+errors=False
+marker=True
+npoints=2
+#(x, y)
+0	0.000696
+0	-0.000696
+dname=$максимумы\ для\ d_c=44\ мкм$ 
+line=False
+curve=False
+errors=False
+marker=True
+npoints=4
+#(x, y)
+0	0.000044
+0	-0.000044
+0	0.000087
+0	-0.000087
+dname=$максимумы\ для\ d_c=116\ мкм$ 
+line=False
+curve=False
+errors=False
+marker=True
+npoints=4
+#(x, y)
+0	0.000116
+0	-0.000116
+0	0.000231
+0	-0.000231

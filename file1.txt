@@ -1,0 +1,27 @@
+#chart:
+name=$График\ зависимости\ \sin(\phi_1)\ от\ длины\ волны\ \lambda$
+ax=$\lambda,\ \AA$
+ay=$\sin(\phi_1)$
+curves=1
+#data:
+dname=$Зависимость\ \sin(\phi_1)\ от\ \lambda$
+line=True
+curve=False
+errors=True
+marker=True
+npoints=6
+#(x, y)
+4047	0.202189084
+4358	0.219860393
+4916	0.248088774
+5461	0.275996182
+5770	0.291727193
+5791	0.292793579
+#(delta_x, delta_y)
+1	0.0004
+1	0.0004
+1	0.0004
+1	0.0004
+1	0.0004
+1	0.0004
+
